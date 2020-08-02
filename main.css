@@ -1,0 +1,48 @@
+body {
+  background: #beef00;
+}
+header {
+  text-align: center;
+  margin-top: 80px;
+    font-size:48px;
+}
+
+.gameSquare:hover {
+  background-color: white;
+}
+.gameBoard {
+  grid-gap: 30px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+  margin: 0 auto;
+  margin-top: 40px;
+  height: 350px;
+  width: 400px;
+  align-content: stretch;
+  border: 6px solid #ff0028;
+  border-radius: 5px;
+  background-color: #3399FF;
+  padding: 10px;
+}
+
+button {
+  cursor: grabbing;
+}
+.gameSquare {
+  border-radius: 5px;
+  font-family: Helvetica;
+  font-weight: bold;
+  font-size: 4em;
+  display: inline-block;
+  justify-content: center;
+  justify-items: stretch;
+  align-items: center;
+  border: 5px solid #ff0028;
+  grid-row: auto;
+  grid-column: 100%;
+  margin: 0 auto;
+  height: 90px;
+  width: 90px;
+  cursor: grabbing;
+}
