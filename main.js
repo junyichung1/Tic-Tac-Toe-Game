@@ -1,60 +1,84 @@
 /*----- constants -----*/
-const COLORS = {
-    player1 = 'x'
-    player2 = 'o'
+const PLAYERONE = {
+    sign: 'x',
 }
-let TURN = true
+const PLAYERTWO = {
+    sign: 'o',
+}
+const MAXGUESS = 9;
 //
-const WINCOMB = {
-    possCom1: [0,1,2],
-    possCom2: [0,4,8],
-    possCom3: [0,3,6],
-    possCom4: [1,4,7],
-    possCom5: [2,5,8],
-    possCom6: [3,4,5],
-    possCom7: [6,7,8],
-    possCom8: [2,4,6]
-}
+const WINCOMB = [
+    [0,1,2],
+    [0,4,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [3,4,5],
+    [6,7,8],
+    [2,4,6]
+]
 
 /*----- app's state (variables) -----*/
-let square0;
-let square1;
-let square2;
-let square3;
-let square4;
-let square5;
-let square6;
-let square7;
-let square8;
-
+//this should either be 'x' or 'o'
+let playerChoice; // player 1 = 1 and player 2 = -1
+let turn;
 
 /*----- cached element references -----*/
-let square0 = document.getElementById('square0')
-let square1 = document.getElementById('square1')
-let square2 = document.getElementById('square2')
-let square3 = document.getElementById('square3')
-let square4 = document.getElementById('square4')
-let square5 = document.getElementById('square5')
-let square6 = document.getElementById('square6')
-let square7 = document.getElementById('square7')
-let square8 = document.getElementById('square8')
+let squareEl = document.querySelector('.gameBoard');
+
 
 
 /*----- event listeners -----*/
-document.querySelector(".gameSquare").addEventListener('click', play);
+document.querySelector(".gameBoard").addEventListener('click', handleClick);
 
 
 
 /*----- functions -----*/
-function play () {
-
+function handleClick(evt) {
+    let index = evt.target.id
+    playerChoice[index] = turn % 2 ? 'O' : 'X'
+    render(evt.target);
+    turn += 1;
+    if(checkWinner()) {
+        squareEl.removeEventListener('click', handleClick);
+    }
 }
 
-function switch () {
 
+
+function init() {
+// initialize all state variables
+playerChoice = [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+];
+turn = 0;
 }
-function replay() {
 
+init();
+
+function checkWinner () {
+    return WINCOMB.some(function(arr){
+        return (
+            playerChoice[arr[0]] === playerChoice[arr[1]] && 
+            playerChoice[arr[0]] === playerChoice[arr[2]] && playerChoice[arr[0]]);
+    })
 }
 
 //create turns for each player
+
+
+function render(element) {
+    element.textContent = turn % 2 ? 'O' : 'X';
+}
+
+function renderMessage() {
+    
+}
