@@ -30,6 +30,9 @@ document.querySelector("#reset").addEventListener('click', init);
 
 
 /*----- functions -----*/
+
+// when clicked, invoke render. check to see if there is a winner. 
+// if not see if it reaches max guess. or add 1 to turn to switch player turn
 function handleClick(evt) {
     let index = evt.target.id
     playerChoice[index] = turn % 2 ? 'O' : 'X'
@@ -59,6 +62,7 @@ playerChoice = [
     null,
     null
 ];
+//restart game, (remove msg, remove x and o, add event listener back)
 document.getElementById('msg').textContent = null;
 turn = 0;
 document.querySelectorAll('.gameSquare').forEach(function(element){
@@ -69,6 +73,7 @@ document.querySelector(".gameBoard").addEventListener('click', handleClick);
 
 init();
 
+//check if playerchoice array matches possible winning combo
 function checkWinner () {
     return WINCOMB.some(function(arr){
         return (
@@ -77,13 +82,14 @@ function checkWinner () {
     })
 }
 
-//create turns for each player
 
+//adds the character X or O
 
 function render(element) {
     element.textContent = turn % 2 ? 'O' : 'X';
 }
 
+// display when X or O wins
 function renderMessage() {
     document.getElementById('msg').textContent = `Player ${turn % 2 ? 'O' : 'X'} wins!`
 }
