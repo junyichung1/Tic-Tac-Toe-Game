@@ -1,10 +1,6 @@
 /*----- constants -----*/
-const PLAYERONE = {
-    sign: 'x',
-}
-const PLAYERTWO = {
-    sign: 'o',
-}
+
+
 const MAXGUESS = 9;
 //
 const WINCOMB = [
@@ -30,7 +26,7 @@ let squareEl = document.querySelector('.gameBoard');
 
 /*----- event listeners -----*/
 document.querySelector(".gameBoard").addEventListener('click', handleClick);
-
+document.querySelector("#reset").addEventListener('click', init);
 
 
 /*----- functions -----*/
@@ -38,10 +34,14 @@ function handleClick(evt) {
     let index = evt.target.id
     playerChoice[index] = turn % 2 ? 'O' : 'X'
     render(evt.target);
-    turn += 1;
     if(checkWinner()) {
         squareEl.removeEventListener('click', handleClick);
+        renderMessage();
+    }else if (turn + 1 === MAXGUESS) {
+        squareEl.removeEventListener('click', handleClick);
+        document.getElementById('msg').textContent = `Nobody wins!`
     }
+    turn += 1;
 }
 
 
@@ -59,7 +59,12 @@ playerChoice = [
     null,
     null
 ];
+document.getElementById('msg').textContent = null;
 turn = 0;
+document.querySelectorAll('.gameSquare').forEach(function(element){
+    element.textContent = '';
+})
+document.querySelector(".gameBoard").addEventListener('click', handleClick);
 }
 
 init();
@@ -80,5 +85,5 @@ function render(element) {
 }
 
 function renderMessage() {
-    
+    document.getElementById('msg').textContent = `Player ${turn % 2 ? 'O' : 'X'} wins!`
 }
